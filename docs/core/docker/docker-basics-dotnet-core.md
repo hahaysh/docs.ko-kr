@@ -38,16 +38,16 @@ Docker 이미지를 만들기 전에 컨테이너화할 응용 프로그램이 �
 
 이 자습서를 완료하려면 다음이 필요합니다.
 
-#### <a name="net-core-20-sdk"></a>.NET Core 2.0 SDK
+#### <a name="net-core-20-sdk"></a>.NET Core 2.1 SDK
 
-* [.NET Core SDK 2.0](https://www.microsoft.com/net/core)을 설치합니다.
+* [.NET Core SDK 2.1](https://www.microsoft.com/net/download)을 설치합니다.
 
 지원 OS 버전 중 .NET Core 2.x를 지원하는 운영 체제 및 수명 주기 정책 링크는 [.NET Core 2.x Supported OS Versions](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md)(.NET Core 2.x가 지원되는 OS 버전)를 참조하세요.
 
-* 아직 없는 경우 즐겨 찾는 코드 편집기를 설치합니다.
+* 편집기가 아직 없다면 자주 쓰는 코드 편집기를 설치합니다.
 
 > [!TIP]
-> 코드 편집기를 설치해야 하나요? [Visual Studio](https://visualstudio.com/downloads)를 체험해 보세요.
+> 코드 편집기를 설치해야 하나요? [Visual Studio Code!](https://code.visualstudio.com/download)를 사용해 보세요.
 
 #### <a name="installing-docker-client"></a>Docker 클라이언트 설치
 
@@ -69,7 +69,7 @@ Docker 클라이언트를 다음에 설치할 수 있습니다.
 
 * [Windows](https://docs.docker.com/docker-for-windows/)
 
-### <a name="create-a-net-core-20-console-app-for-dockerization"></a>Dockerization에 대한 .NET Core 2.0 콘솔 앱 만들기
+### <a name="create-a-net-core-20-console-app-for-dockerization"></a>Dockerization에 대한 .NET Core 2.1 콘솔 앱 만들기
 
 명령 프롬프트를 열고 *Hello*라는 폴더를 만듭니다. 만든 폴더로 이동하고 다음 명령을 입력합니다.
 
@@ -133,7 +133,7 @@ Hello .NET Core 콘솔 앱은 성공적으로 로컬로 실행됩니다. 이제 
 Linux 또는 [Windows 컨테이너](https://docs.microsoft.com/virtualization/windowscontainers/about/)용 다음 Docker 명령을 새 파일에 추가합니다. 완료되면 확장명 없이 Hello 디렉터리의 루트에 **Dockerfile**로 저장합니다(파일 형식을 `All types (*.*)` 또는 유사한 것으로 설정해야 할 수 있음).
 
 ```Dockerfile
-FROM microsoft/dotnet:2.0-sdk
+FROM microsoft/dotnet:2.1-sdk
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -148,10 +148,10 @@ ENTRYPOINT ["dotnet", "out/Hello.dll"]
 
 Dockerfile은 순서대로 실행되는 Docker 빌드 명령을 포함합니다.
 
-첫 번째 명령은 [**FROM**](https://docs.docker.com/engine/reference/builder/#from)이어야 합니다. 이 명령은 새 빌드 단계를 초기화하고 나머지 명령에 대한 기본 이미지를 설정합니다. 다중 아키텍처 태그는 Windows [컨테이너 모드](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers)용 Docker에 따라 Windows 또는 Linux 컨테이너를 끌어옵니다. 샘플에 대한 기본 이미지는 microsoft/dotnet 리포지토리에서 2.0-sdk 이미지입니다.
+첫 번째 명령은 [**FROM**](https://docs.docker.com/engine/reference/builder/#from)이어야 합니다. 이 명령은 새 빌드 단계를 초기화하고 나머지 명령에 대한 기본 이미지를 설정합니다. 다중 아키텍처 태그는 Windows [컨테이너 모드](https://docs.docker.com/docker-for-windows/#switch-between-windows-and-linux-containers)용 Docker에 따라 Windows 또는 Linux 컨테이너를 끌어옵니다. 샘플에 대한 기본 이미지는 microsoft/dotnet 리포지토리에서 2.1-sdk 이미지입니다.
 
 ```Dockerfile
-FROM microsoft/dotnet:2.0-sdk
+FROM microsoft/dotnet:2.1-sdk
 ```
 
 [**WORKDIR**](https://docs.docker.com/engine/reference/builder/#workdir) 명령은 나머지 RUN, CMD, ENTRYPOINT, COPY 및 ADD Dockerfile 명령에 대해 작업 디렉터리를 설정합니다. 디렉터리가 없을 경우 만들어집니다. 이 경우 WORKDIR은 앱 디렉터리로 설정됩니다.
@@ -196,7 +196,7 @@ ENTRYPOINT ["dotnet", "out/Hello.dll"]
 * 이미지에 대한 앱의 종속성
 * 앱이 실행 파일로 실행되도록 빌드
 
-### <a name="build-and-run-the-hello-net-core-20-app"></a>Hello .NET Core 2.0 앱 빌드 및 실행
+### <a name="build-and-run-the-hello-net-core-20-app"></a>Hello .NET Core 2.1 앱 빌드 및 실행
 
 #### <a name="essential-docker-commands"></a>필수 Docker 명령
 
@@ -222,9 +222,9 @@ docker run --rm dotnetapp-dev Hello from Docker
 `docker build` 명령의 출력은 다음 콘솔 출력과 유사해야 합니다.
 
 ```console
-Sending build context to Docker daemon   72.7kB
-Step 1/7 : FROM microsoft/dotnet:2.0-sdk
- ---> d84f64b126a6
+Sending build context to Docker daemon   173.1kB
+Step 1/7 : FROM microsoft/dotnet:2.1-sdk
+ ---> 288f8c45f7c2
 Step 2/7 : WORKDIR /app
  ---> Using cache
  ---> 9af1fbdc7972
@@ -243,7 +243,7 @@ Step 6/7 : RUN dotnet publish -c Release -o out
 Step 7/7 : ENTRYPOINT dotnet out/Hello.dll
  ---> Using cache
  ---> 53c337887e18
-Successfully built 53c337887e18
+Successfully built 46db075bd98d
 Successfully tagged dotnetapp-dev:latest
 ```
 
